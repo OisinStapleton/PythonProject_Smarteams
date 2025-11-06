@@ -1,5 +1,6 @@
 import random
 
+# check if the box is valid
 def isValid(grid, row, col, num):
     # Check row
     if num in grid[row]:
@@ -7,9 +8,9 @@ def isValid(grid, row, col, num):
     # Check column
     if num in [grid[r][col] for r in range(9)]:
         return False
-    # Check 3x3 box
-    startRow = (row // 3) * 3
-    startCol = (col // 3) * 3
+    # Check 3x3 box, eg the nine big boxes
+    startRow = (row // 3) * 3 # gets 0,3 or 6
+    startCol = (col // 3) * 3 # gets 0,3 or 6
     for r in range(startRow, startRow + 3):
         for c in range(startCol, startCol + 3):
             if grid[r][c] == num:
@@ -21,9 +22,8 @@ def solveSudoku(grid, row=0, col=0):
         return True  # Completed
     if col == 9:
         return solveSudoku(grid, row + 1, 0)  # Next row
-    if grid[row][col] != 0:  # Skip pre-filled cell
-        return solveSudoku(grid, row, col + 1)
-
+    # if grid[row][col] != 0:  # Skip pre-filled cell
+    #    return solveSudoku(grid, row, col + 1)
     nums = list(range(1, 10))
     random.shuffle(nums)
     for num in nums:
